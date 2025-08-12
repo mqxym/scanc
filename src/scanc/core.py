@@ -41,13 +41,22 @@ TEXT_CHUNK = 8192  # bytes used to check if file is text/binary
 # Models
 # --------------------------------------------------------------------------- #
 
+import sys
+from dataclasses import dataclass
 
-@dataclass(slots=True)
+if sys.version_info >= (3, 10):
+    _dataclass = dataclass 
+    _slots_kw = {"slots": True}
+else:
+    from functools import partial
+    _dataclass = partial(dataclass)
+    _slots_kw = {}
+
+@_dataclass(**_slots_kw)                      # expands to slots=True when valid
 class ScannedFile:
     path: Path
-    language: str  # ext without dot
+    language: str
     content: str
-
 
 # --------------------------------------------------------------------------- #
 # Helpers
