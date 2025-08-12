@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   test-mac:
-    name: Test on Multiple Python Versions
+    name: MacOS - Test on Multiple Python Versions
     runs-on: macos-latest
     strategy:
       matrix:
@@ -38,7 +38,7 @@ jobs:
         continue-on-error: true
 
   test-windows:
-    name: Test on Multiple Python Versions
+    name: Windows - Test on Multiple Python Versions
     runs-on: windows-latest
     strategy:
       matrix:
@@ -63,7 +63,7 @@ jobs:
         continue-on-error: true
 
   test-linux:
-    name: Test on Multiple Python Versions
+    name: Ubuntu - Test on Multiple Python Versions
     runs-on: ubuntu-latest
     strategy:
       matrix:

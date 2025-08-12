@@ -156,9 +156,14 @@ def scan_directory(
             if not follow_symlinks and path.is_symlink():
                 continue
             try:
-                if path.stat(follow_symlinks=follow_symlinks).st_size > max_size:
-                    continue
-            except FileNotFoundError:      # broken symlink or race condition
+                size = (
+                    path.stat().st_size        # follows symlinks
+                    if follow_symlinks
+                    else path.lstat().st_size  # metadata of the link itself
+                )
+            except OSError:                    # broken link, permission issue, race…
+                continue
+            if size > max_size:
                 continue
             if _excluded(path):
                 continue
