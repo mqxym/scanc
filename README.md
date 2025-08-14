@@ -1,4 +1,5 @@
 # scanc
+![Test Status](https://github.com/mqxym/scanc/actions/workflows/python-publish.yml/badge.svg)
 
 > A fast, pure‑Python project code‑scanner that outputs clean, AI‑ready Markdown.
 > scanc stands for scanc(ode)
