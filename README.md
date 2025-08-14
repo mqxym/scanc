@@ -24,6 +24,10 @@
 ## Installation
 
 ```bash
+# Optional: Use a virutal environment
+python3 -m venv --prompt scanc-env .venv
+source .venv/bin/activate
+
 pip install scanc[tiktoken]  # installs optional token‑counter support
 ```
 
