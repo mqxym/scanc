@@ -70,6 +70,6 @@ scanc [OPTIONS] [PATHS...]
 - **Formatter Hook:** Customize output by passing your own formatter via entry points.
 - **Extras:** Use `scanc[tiktoken]` to enable token counting; more extras may follow.
 
-## License
+## Licence
 
-Released under the MIT License. See [LICENSE](LICENSE) for details.
+Released under the MIT Licence. See [LICENCE](LICENCE) for details.
