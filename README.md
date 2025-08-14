@@ -33,8 +33,9 @@ Scan a directory and emit Markdown:
 ```bash
 scanc .                     # scan current folder
 scanc -e py,js --tree       # only .py and .js files + directory tree
-scanc -e py --tree -x "tests" | less # only py files exclude tests in path
+scanc -e py -x "tests" | less # only py files exclude tests in path
 scanc --tokens gpt-4o  # show token count for gpt 4o only
+scanc -e py | pbcopy # scan and copy (macOS copy example)
 ```
 
 Write output directly to a file:
