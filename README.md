@@ -1,8 +1,9 @@
 # scanc
+
 ![Test Status](https://github.com/mqxym/scanc/actions/workflows/python-publish.yml/badge.svg)
 
-> A fast, pure‑Python project code‑scanner that outputs clean, AI‑ready Markdown.
-> scanc stands for scanc(ode)
+> scanc = scan c(ode) <br>
+> A fast, pure‑Python project code‑scanner that outputs clean, AI‑ready Markdown or XML.
 
 `scanc` helps you **spill an entire codebase into an LLM prompt** (or a file) in seconds—while keeping noise low, controlling token budgets, and giving you full visibility.
 
@@ -36,11 +37,12 @@ pip install scanc[tiktoken]  # installs optional token‑counter support
 Scan a directory and emit Markdown:
 
 ```bash
-scanc .                     # scan current folder
-scanc -e py,js --tree       # only .py and .js files + directory tree
-scanc -e py -x "tests" | less # only py files exclude tests in path
-scanc --tokens gpt-4o  # show token count for gpt 4o only
-scanc -e py | pbcopy # scan and copy (macOS copy example)
+scanc .                         # scan current folder
+scanc -e py,js --tree           # only .py and .js files + directory tree
+scanc -f xml                    # output scan in xml format (new in v1.2.0)
+scanc -e py -x "tests" | less   # only py files exclude tests in path
+scanc --tokens gpt-4o           # show token count for gpt 4o only
+scanc -e py | pbcopy            # scan and copy (macOS copy command example)
 ```
 
 Write output directly to a file:

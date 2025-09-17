@@ -16,8 +16,8 @@ def test_to_tree_nested(tmp_path: Path) -> None:
 
 def test_markdown_formatter_with_tree(tmp_path: Path) -> None:
     (tmp_path / "x.js").write_text("console.log(1)")
-    files, tree_md = scan_directory(paths=[tmp_path], include_tree=True)
-    md = MARKDOWN(files, tree_md)
+    files, tree_str = scan_directory(paths=[tmp_path], include_tree=True)
+    md = MARKDOWN(files, tree_str)
 
     # one code fence pair for the tree and another pair for the file
     assert "**File Structure**\n\n```text" in md.strip()

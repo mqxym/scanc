@@ -36,7 +36,7 @@ def _to_tree(paths: Iterable[Path]) -> str:
     return "\n".join(tree_lines)
 
 
-def build_markdown_tree(scan_roots: Iterable[Path], files: List[ScannedFile]) -> str:
+def build_tree(scan_roots: Iterable[Path], files: List[ScannedFile]) -> str:
     """
     Return a fenced Markdown code-block containing the directory tree,
     respecting what was actually scanned.
@@ -46,4 +46,4 @@ def build_markdown_tree(scan_roots: Iterable[Path], files: List[ScannedFile]) ->
         if r.is_file():
             all_paths.append(Path(r.name))
     tree_str = _to_tree(all_paths)
-    return f"**File Structure**\n\n```text\n{tree_str}\n```\n"
+    return tree_str
