@@ -6,7 +6,7 @@ README = (HERE / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="scanc",
-    version="1.2.0",
+    version="1.2.1",
     description="AI-ready code-base scanner that outputs Markdown or XML.",
     long_description=README,
     long_description_content_type="text/markdown",
