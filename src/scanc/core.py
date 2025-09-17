@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, List, Sequence, Tuple
 
-from .tree import build_markdown_tree
+from .tree import build_tree
 
 # --------------------------------------------------------------------------- #
 # Defaults
@@ -180,5 +180,5 @@ def scan_directory(
             relative = path.relative_to(common_root) if path.is_absolute() else path
             files.append(ScannedFile(path=relative, language=lang or "text", content=text))
 
-    tree_md = build_markdown_tree(paths, files) if include_tree else None
-    return files, tree_md
+    tree_str = build_tree(paths, files) if include_tree else None
+    return files, tree_str

@@ -9,7 +9,7 @@ import click
 
 from . import __version__
 from .core import DEFAULT_EXCLUDES, scan_directory
-from .formatter import format_result, MARKDOWN
+from .formatter import format_result, MARKDOWN, XML
 
 # --------------------------------------------------------------------------- #
 # Helpers
@@ -95,7 +95,7 @@ def _comma_separated(ctx, param, value):  # click callback
     "-f",
     "--format",
     "format_name",
-    type=click.Choice(["markdown"], case_sensitive=False),
+    type=click.Choice(["markdown", "xml"], case_sensitive=False),
     default="markdown",
     show_default=True,
     help="Output format.  Additional formats can be added via entry-points.",
@@ -136,7 +136,7 @@ def main(
         paths = [Path.cwd()]
     # --------------------------------------------------------------------- #
     # Collect files
-    files, tree_md = scan_directory(
+    files, tree_str = scan_directory(
         paths=paths,
         extensions=extensions,
         include_regex=include_regex,
@@ -157,8 +157,8 @@ def main(
 
     formatted = format_result(
         files=files,
-        tree_md=tree_md if tree else None,
-        formatter=MARKDOWN,
+        tree=tree_str if tree_str else None,
+        format_name=format_name,
     )
 
     try:
