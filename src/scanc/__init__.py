@@ -14,7 +14,7 @@ from importlib.metadata import PackageNotFoundError, version
 try:  # Keep editable installs happy.
     __version__: str = version("scanc")
 except PackageNotFoundError:
-    __version__ = "1.1.0"
+    __version__ = "1.2.0"
 
 from .core import scan_directory 
 
