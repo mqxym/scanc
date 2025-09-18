@@ -207,4 +207,4 @@ jobs:
             --exit-code 1 \
             --severity HIGH,CRITICAL \
             --ignore-unfixed \
-            ghcr.io/${{ github.repository_owner }}/cryptit-cli:latest
+            ghcr.io/${{ github.repository_owner }}/scanc-cli:latest
