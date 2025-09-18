@@ -85,17 +85,17 @@ It runs as **non-root** and scans the **mounted host directory** by default.
 ### Pull
 
 ```bash
-docker pull ghcr.io/mqxym/scanc:latest
+docker pull ghcr.io/mqxym/scanc-cli:latest
 ```
 
 ### Scan the current project (read-only mount)
 
 ```bash
 # Linux/macOS (Bash/Zsh)
-docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc:latest .
+docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc-cli:latest .
 
 # Windows PowerShell
-docker run --rm -v "${PWD}:/work:ro" ghcr.io/mqxym/scanc:latest .
+docker run --rm -v "${PWD}:/work:ro" ghcr.io/mqxym/scanc-cli:latest .
 ```
 
 Because the container’s `WORKDIR` is `/work` and `ENTRYPOINT` is `scanc`,
@@ -106,13 +106,13 @@ passing `.` scans your host’s current folder.
 Either redirect on the host:
 
 ```bash
-docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc:latest -e py --tree . > scan.md
+docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc-cli:latest -e py --tree . > scan.md
 ```
 
 ...or mount as **writable** and write into `/work`:
 
 ```bash
-docker run --rm -v "$PWD":/work ghcr.io/mqxym/scanc:latest -e py --tree -o /work/scan.md .
+docker run --rm -v "$PWD":/work ghcr.io/mqxym/scanc-cli:latest -e py --tree -o /work/scan.md .
 ```
 
 > Tip (Linux/macOS): preserve file ownership when writing by mapping your UID/GID
@@ -120,17 +120,17 @@ docker run --rm -v "$PWD":/work ghcr.io/mqxym/scanc:latest -e py --tree -o /work
 > ```bash
 > docker run --rm \
 >   --user "$(id -u)":"$(id -g)" \
->   -v "$PWD":/work ghcr.io/mqxym/scanc:latest -o /work/scan.md .
+>   -v "$PWD":/work ghcr.io/mqxym/scanc-cli:latest -o /work/scan.md .
 > ```
 
 ### Examples
 
 ```bash
 # Only Python & JS files, include directory tree
-docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc:latest -e py,js --tree .
+docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc-cli:latest -e py,js --tree .
 
 # Token count only (requires optional 'tiktoken' which is baked into the image)
-docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc:latest --tokens gpt-4o .
+docker run --rm -v "$PWD":/work:ro ghcr.io/mqxym/scanc-cli:latest --tokens gpt-4o .
 ```
 
 ## Licence
