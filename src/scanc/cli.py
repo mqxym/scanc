@@ -26,36 +26,60 @@ def _comma_separated(ctx, param, value):  # click callback
 # CLI definition
 # --------------------------------------------------------------------------- #
 
-@click.command(context_settings=dict(help_option_names=["-h", "--help"]))
+examples = """
+--------------------------------
+
+Examples:
+
+# Scan current directory with default rules
+\n
+scanc .
+\n
+# Scan only JS & TS files, include a tree, write to file
+\n
+scanc -e js,ts --tree -o scan.md .
+\n
+# Token count only (no output)
+\n
+scanc --tokens gpt-4o
+\n
+"""
+
+@click.command(
+    context_settings=dict(
+        help_option_names=["-h", "--help"],
+        max_content_width=100,
+    ),
+    help="Scan source code and emit AI-ready Markdown (or XML).",
+    epilog=examples,
+)
+
 @click.version_option(__version__, "--version", "-V", prog_name="scanc")
 @click.argument(
     "paths",
     nargs=-1,
     type=click.Path(file_okay=True, dir_okay=True, exists=True, path_type=Path),
     required=False,
+    metavar="PATHS",
 )
 @click.option(
-    "-e",
-    "--ext",
-    "extensions",
+    "-e", "--ext", "extensions",
     callback=_comma_separated,
     metavar="EXTS",
     help="Comma-separated list of file extensions to include (e.g. py,js,ts). "
-    "Case-insensitive, leading dots optional. Omit to include all.",
+         "Case-insensitive; dots optional. Omit to include all.",
 )
 @click.option(
-    "-i",
-    "--include-regex",
-    "include_regex",
+    "-i", "--include-regex", "include_regex",
     multiple=True,
-    help="Regex pattern(s) to **include**.  Evaluated against the full path.",
+    metavar="PATTERN",
+    help="Regex pattern(s) to include. Matches against the full path. Can be repeated.",
 )
 @click.option(
-    "-x",
-    "--exclude-regex",
-    "exclude_regex",
+    "-x", "--exclude-regex", "exclude_regex",
     multiple=True,
-    help="Regex pattern(s) to **exclude**.  Evaluated against the full path.",
+    metavar="PATTERN",
+    help="Regex pattern(s) to exclude. Matches against the full path. Can be repeated.",
 )
 @click.option(
     "--no-default-excludes",
@@ -63,44 +87,42 @@ def _comma_separated(ctx, param, value):  # click callback
     help=f"Do not use the built-in ignore list (default: {', '.join(sorted(DEFAULT_EXCLUDES))}).",
 )
 @click.option(
-    "-t",
-    "--tree/--no-tree",
+    "-t", "--tree/--no-tree",
     default=False,
     help="Prepend a Markdown directory tree to the scan result.",
 )
 @click.option(
-    "-T",
-    "--tokens",
-    "model_name",
+    "-T", "--tokens", "model_name",
     metavar="MODEL",
-    help="Show token count for MODEL (e.g. gpt-4o, gpt-3.5-turbo). "
-    "Suppresses normal output.",
+    help="Print token count for MODEL (e.g. gpt-4o, gpt-3.5-turbo) and exit. Suppresses normal output.",
 )
 @click.option(
     "--max-size",
     type=int,
     metavar="BYTES",
-    default=1_048_576,  # 1 MiB
+    default=1_048_576,
     show_default=True,
-    help="Skip individual files above this size.",
+    help="Skip individual files larger than this size.",
 )
 @click.option(
-    "-o",
-    "--out",
-    "outfile",
+    "-o", "--out", "outfile",
     type=click.Path(dir_okay=False, writable=True, path_type=Path),
-    help="Write result to <outfile> instead of STDOUT.",
+    metavar="FILE",
+    help="Write result to FILE instead of STDOUT.",
 )
 @click.option(
-    "-f",
-    "--format",
-    "format_name",
+    "-f", "--format", "format_name",
     type=click.Choice(["markdown", "xml"], case_sensitive=False),
     default="markdown",
     show_default=True,
-    help="Output format.  Additional formats can be added via entry-points.",
+    help="Output format. Additional formats can be added via entry points.",
 )
-@click.option("--follow-symlinks/--no-follow-symlinks", default=False, help="Traverse symlinks.")
+@click.option(
+    "--follow-symlinks/--no-follow-symlinks",
+    default=False,
+    help="Traverse symlinks.",
+)
+
 def main(
     paths: List[Path],
     extensions: Optional[List[str]],
